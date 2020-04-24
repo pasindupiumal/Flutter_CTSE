@@ -1,3 +1,7 @@
+import 'package:ctseprojectapp/screens/home/browse.dart';
+import 'package:ctseprojectapp/screens/home/cart.dart';
+import 'package:ctseprojectapp/screens/home/history.dart';
+import 'package:ctseprojectapp/screens/home/profile.dart';
 import 'package:ctseprojectapp/services/auth.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +14,13 @@ class _HomeState extends State<Home> {
 
   final AuthService _authService = new AuthService();
   int _currentIndex = 0;
+
+  final tabs = [
+    Browse(),
+    Cart(),
+    History(),
+    Profile(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +44,7 @@ class _HomeState extends State<Home> {
           )
         ],
       ),
-
+      body: tabs[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
 
         currentIndex: _currentIndex,
