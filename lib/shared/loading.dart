@@ -8,11 +8,6 @@ class Loading extends StatelessWidget {
 
     return Scaffold(
 
-      appBar: AppBar(
-
-          backgroundColor: Colors.blueAccent,
-          title: Text('Brew Crew - Loading'),
-      ),
       body: Container(
 
         color: Colors.white,

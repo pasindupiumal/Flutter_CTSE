@@ -1,5 +1,5 @@
 import 'package:ctseprojectapp/services/auth.dart';
-import 'package:ctseprojectapp/shared/shared.dart';
+import 'package:ctseprojectapp/shared/loading.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatefulWidget {
