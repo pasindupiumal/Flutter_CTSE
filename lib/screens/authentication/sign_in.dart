@@ -26,7 +26,7 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
 
-    return loading ? Loading() : Scaffold(
+    return Scaffold(
 
       appBar: AppBar(
 
@@ -43,7 +43,7 @@ class _SignInState extends State<SignIn> {
         ]
       ),
 
-      body: Container(
+      body: loading ? Loading() : Container(
 
         padding: EdgeInsets.symmetric(vertical:20, horizontal: 50),
         child: ListView(
