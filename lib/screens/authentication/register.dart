@@ -1,5 +1,5 @@
 import 'package:ctseprojectapp/services/auth.dart';
-import 'package:ctseprojectapp/shared/shared.dart';
+import 'package:ctseprojectapp/shared/loading.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
@@ -24,7 +24,7 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-    return loading ? Loading() : Scaffold(
+    return Scaffold(
 
       appBar: AppBar(
 
@@ -41,7 +41,7 @@ class _RegisterState extends State<Register> {
           ]
       ),
 
-      body: Container(
+      body: loading ? Loading() : Container(
 
         padding: EdgeInsets.symmetric(vertical:20, horizontal: 50),
         child: ListView(
