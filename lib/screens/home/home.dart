@@ -1,3 +1,4 @@
+import 'package:ctseprojectapp/screens/home/app_flow.dart';
 import 'package:ctseprojectapp/screens/home/browse.dart';
 import 'package:ctseprojectapp/screens/home/cart.dart';
 import 'package:ctseprojectapp/screens/home/history.dart';
@@ -22,65 +23,109 @@ class _HomeState extends State<Home> {
     Profile(),
   ];
 
+
+  final List<AppFlow> appFlows = [
+
+    AppFlow(
+      title: 'Browse',
+      iconData: Icons.home,
+      navigatorKey: GlobalKey<NavigatorState>(),
+    ),
+    AppFlow(
+      title: 'Cart',
+      iconData: Icons.shopping_cart,
+      navigatorKey: GlobalKey<NavigatorState>(),
+    ),
+    AppFlow(
+      title: 'History',
+      iconData: Icons.history,
+      navigatorKey: GlobalKey<NavigatorState>(),
+    ),
+    AppFlow(
+      title: 'Profile',
+      iconData: Icons.person,
+      navigatorKey: GlobalKey<NavigatorState>(),
+    ),
+  ];
+
+  void pushPage(BuildContext context, bool isHorizontalNavigation, int pageIndex) {
+
+    Navigator.of(context, rootNavigator: !isHorizontalNavigation).push(
+      MaterialPageRoute(
+        builder: (context) => Profile(),
+        fullscreenDialog: !isHorizontalNavigation,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
+    final currentFlow = appFlows[_currentIndex];
 
-      appBar: AppBar(
+    return WillPopScope(
 
-        backgroundColor: Colors.blueAccent,
-        title: Text("Flutter Eats"),
-        actions: <Widget>[
+      onWillPop: () async => !await currentFlow.navigatorKey.currentState.maybePop(),
 
-          FlatButton.icon(
+      child: Scaffold(
 
-            icon: Icon(Icons.person),
-            label: Text('Logout'),
-            onPressed: () async {
+        appBar: AppBar(
+
+          backgroundColor: Colors.blueAccent,
+          title: Text("Flutter Eats"),
+          actions: <Widget>[
+
+            FlatButton.icon(
+
+              icon: Icon(Icons.person),
+              label: Text('Logout'),
+              onPressed: () async {
 
                 await _authService.signOut();
-            },
-          )
-        ],
+              },
+            )
+          ],
+        ),
+
+        body: IndexedStack(
+          index: _currentIndex,
+          children: appFlows.map(
+            _buildIndexedPageFlow,
+          ).toList(),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+
+          currentIndex: _currentIndex,
+          type: BottomNavigationBarType.fixed,
+          items: appFlows.map(
+              (flow) => BottomNavigationBarItem(
+                title: Text(flow.title),
+                icon: Icon(flow.iconData),
+              )
+          ).toList(),
+          onTap: (newIndex) => setState(
+              () {
+                if(_currentIndex != newIndex){
+                  _currentIndex = newIndex;
+                }
+                else{
+                  currentFlow.navigatorKey.currentState.popUntil((route) => route.isFirst);
+                }
+              }
+          ),
+        ),
       ),
-      body: tabs[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-
-        currentIndex: _currentIndex,
-        type: BottomNavigationBarType.fixed,
-        items: [
-
-          BottomNavigationBarItem(
-
-            icon: Icon(Icons.home),
-            title: Text("Home"),
-          ),
-          BottomNavigationBarItem(
-
-            icon: Icon(Icons.shopping_cart),
-            title: Text("Cart"),
-          ),
-          BottomNavigationBarItem(
-
-            icon: Icon(Icons.history),
-            title: Text("History"),
-          ),
-          BottomNavigationBarItem(
-
-            icon: Icon(Icons.person),
-            title: Text("Profile"),
-          ),
-
-        ],
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        }
-
-      ),
-
     );
   }
+
+  Widget _buildIndexedPageFlow(AppFlow appFlow) => Navigator(
+
+    key: appFlow.navigatorKey,
+
+    onGenerateRoute: (settings) => MaterialPageRoute(
+
+      settings: settings,
+      builder: (context) => tabs[_currentIndex],
+    )
+  );
 }
