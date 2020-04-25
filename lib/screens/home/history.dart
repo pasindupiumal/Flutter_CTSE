@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
 class History extends StatefulWidget {
+
+  final Function pushPage;
+
+  History({this.pushPage});
+
   @override
   _HistoryState createState() => _HistoryState();
 }

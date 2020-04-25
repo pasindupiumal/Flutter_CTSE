@@ -15,17 +15,8 @@ class _HomeState extends State<Home> {
 
   final AuthService _authService = new AuthService();
   int _currentIndex = 0;
-
-  final tabs = [
-    Browse(),
-    Cart(),
-    History(),
-    Profile(),
-  ];
-
-
+  bool loading = false;
   final List<AppFlow> appFlows = [
-
     AppFlow(
       title: 'Browse',
       iconData: Icons.home,
@@ -48,15 +39,6 @@ class _HomeState extends State<Home> {
     ),
   ];
 
-  void pushPage(BuildContext context, bool isHorizontalNavigation, int pageIndex) {
-
-    Navigator.of(context, rootNavigator: !isHorizontalNavigation).push(
-      MaterialPageRoute(
-        builder: (context) => Profile(),
-        fullscreenDialog: !isHorizontalNavigation,
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,6 +75,7 @@ class _HomeState extends State<Home> {
             _buildIndexedPageFlow,
           ).toList(),
         ),
+
         bottomNavigationBar: BottomNavigationBar(
 
           currentIndex: _currentIndex,
@@ -118,6 +101,36 @@ class _HomeState extends State<Home> {
     );
   }
 
+  Widget getPage(int index){
+
+    if (index == 0){
+      return Browse(pushPage: pushPage);
+    }
+    else if(index == 1){
+      return Cart(pushPage: pushPage);
+    }
+    else if(index == 2){
+      return History(pushPage: pushPage);
+    }
+    else if(index == 3){
+      return Profile(pushPage: pushPage);
+    }
+    else{
+      return Home();
+    }
+
+  }
+
+  void pushPage(BuildContext context, bool isHorizontalNavigation, int pageIndex) {
+
+    Navigator.of(context, rootNavigator: !isHorizontalNavigation).push(
+      MaterialPageRoute(
+        builder: (context) => getPage(pageIndex),
+        fullscreenDialog: !isHorizontalNavigation,
+      ),
+    );
+  }
+
   Widget _buildIndexedPageFlow(AppFlow appFlow) => Navigator(
 
     key: appFlow.navigatorKey,
@@ -125,7 +138,7 @@ class _HomeState extends State<Home> {
     onGenerateRoute: (settings) => MaterialPageRoute(
 
       settings: settings,
-      builder: (context) => tabs[_currentIndex],
+      builder: (context) => getPage(_currentIndex),
     )
   );
 }

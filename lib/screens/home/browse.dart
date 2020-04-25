@@ -1,13 +1,11 @@
-import 'package:ctseprojectapp/screens/home/profile.dart';
-import 'package:ctseprojectapp/screens/home/history.dart';
 import 'package:flutter/material.dart';
 
 
 class Browse extends StatefulWidget {
 
-  final Function pushPages;
+  final Function pushPage;
 
-  Browse ({this.pushPages});
+  Browse ({this.pushPage});
 
   @override
   _BrowseState createState() => _BrowseState();
@@ -26,22 +24,11 @@ class _BrowseState extends State<Browse> {
             color: Colors.blueAccent,
             child: Text("Click Me"),
             onPressed: () {
-              pushPage(context, true);
+              widget.pushPage(context, true, 2);
             },
           ),
         )
       ),
     );
   }
-
-  void pushPage(BuildContext context, bool isHorizontalNavigation) {
-
-    Navigator.of(context, rootNavigator: !isHorizontalNavigation).push(
-      MaterialPageRoute(
-        builder: (context) => Profile(),
-        fullscreenDialog: !isHorizontalNavigation,
-      ),
-    );
-  }
-
 }
