@@ -51,24 +51,6 @@ class _HomeState extends State<Home> {
 
       child: Scaffold(
 
-        appBar: AppBar(
-
-          backgroundColor: Colors.blueAccent,
-          title: Text("Flutter Eats"),
-          actions: <Widget>[
-
-            FlatButton.icon(
-
-              icon: Icon(Icons.person),
-              label: Text('Logout'),
-              onPressed: () async {
-
-                await _authService.signOut();
-              },
-            )
-          ],
-        ),
-
         body: IndexedStack(
           index: _currentIndex,
           children: appFlows.map(
