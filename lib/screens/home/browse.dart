@@ -45,7 +45,7 @@ class _BrowseState extends State<Browse> {
                     itemCount: snapshot.data.length,
                     padding: EdgeInsets.only(top: 10.0),
                     itemBuilder: (_, index){
-                      return itemCard(snapshot.data[index].data["itemName"], snapshot.data[index].data["itemIncludes"], snapshot.data[index].data["itemPrice"].toString(), 'assets/otto5.jpg', true, 0);
+                      return itemCard(snapshot.data[index].data["itemName"], snapshot.data[index].data["itemIncludes"], snapshot.data[index].data["itemPrice"].toString(), snapshot.data[index].data["itemURL"], true);
                     }
                 );
               }
@@ -55,7 +55,7 @@ class _BrowseState extends State<Browse> {
     );
   }
 
-  Widget itemCard(itemName, includes , price, imgPath, available, i) {
+  Widget itemCard(itemName, includes , price, imgPath, available) {
 
     return InkWell(
       onTap: () {
@@ -108,7 +108,7 @@ class _BrowseState extends State<Browse> {
                         width: 125.0,
                         decoration: BoxDecoration(
                             image: DecorationImage(
-                                image: AssetImage(imgPath),
+                                image: NetworkImage(imgPath),
                                 fit: BoxFit.contain)),
                       ),
                       SizedBox(width: 4.0),
