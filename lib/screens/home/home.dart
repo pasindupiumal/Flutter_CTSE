@@ -115,7 +115,7 @@ class _HomeState extends State<Home> {
       return Browse(pushPage: pushPage, cartList: cartList);
     }
     else if(index == 1){
-      return Cart(pushPage: pushPage);
+      return Cart(pushPage: pushPage, cartList: cartList);
     }
     else if(index == 2){
       return History(pushPage: pushPage);
