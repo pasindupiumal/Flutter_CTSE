@@ -28,49 +28,70 @@ class _HistoryState extends State<History> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      body: Container(
-        child: FutureBuilder(
-          future: getItems(),
-          builder: (_, snapshot){
+        body: Container(
+            child: FutureBuilder(
+                future: getItems(),
+                builder: (_, snapshot){
 
-            if(snapshot.connectionState == ConnectionState.waiting){
-              return Loading();
-            }
-            else{
-              return Column(
-                children: <Widget>[
-                  SizedBox(height: 25.0),
-                  Center(
-                      child: RaisedButton(
+                  if(snapshot.connectionState == ConnectionState.waiting){
+                    return Loading();
+                  }
+                  else{
+                    return ListView(
+                      children: <Widget>[
+                        SizedBox(height: 25.0),
+                        Center(
+                            child: RaisedButton(
 
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5.0)
-                          ),
-                          color: Colors.blue.shade400,
-                          textColor: Colors.white,
-                          child: Text("Add to Cart"),
-                          onPressed: () {}
-                      )
-                  ),
-                  SizedBox(height: 35.0),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (_, index){
-                      return ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage: NetworkImage(snapshot.data[index].data["itemURL"]),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5.0)
+                                ),
+                                color: Colors.blue.shade400,
+                                textColor: Colors.white,
+                                child: Text("Add to Cart"),
+                                onPressed: () {}
+                            )
                         ),
-                        title: Text(snapshot.data[index].data["itemName"]),
-                      );
-                    }
-                  )
-                ],
-              );
-            }
-          }
+                        SizedBox(height: 40.0),
+                        ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: snapshot.data.length,
+                            itemBuilder: (_, index){
+                              return ListTile(
+                                  leading: CircleAvatar(
+                                    backgroundImage: NetworkImage(snapshot.data[index].data["itemURL"]),
+                                  ),
+                                  title: Text(snapshot.data[index].data["itemName"]),
+                                  subtitle: Text('Includes: ' + snapshot.data[index].data["itemIncludes"] + '\nPrice: Rs. ' + snapshot.data[index].data["itemPrice"].toString() + '    Status: ' + snapshot.data[index].data["itemAvailable"].toString()),
+                                  isThreeLine: true,
+                                  trailing: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      IconButton(
+                                        icon: Icon(Icons.edit),
+                                        onPressed: (){
+
+                                        },
+                                      ),
+                                      SizedBox(width: 10),
+                                      IconButton(
+                                        icon: Icon(Icons.delete),
+                                        onPressed: (){
+
+                                        },
+                                      ),
+
+                                    ],
+                                  )
+                              );
+                            }
+                        )
+                      ],
+                    );
+                  }
+                }
+            )
         )
-      )
     );
   }
 }

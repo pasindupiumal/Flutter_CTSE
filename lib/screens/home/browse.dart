@@ -49,7 +49,7 @@ class _BrowseState extends State<Browse> {
                     itemCount: snapshot.data.length,
                     padding: EdgeInsets.only(top: 15.0, left: 10, right: 10),
                     itemBuilder: (_, index){
-                      return itemCard(snapshot.data[index], snapshot.data[index].data["itemName"], snapshot.data[index].data["itemIncludes"], snapshot.data[index].data["itemPrice"].toString(), snapshot.data[index].data["itemURL"], true);
+                      return itemCard(snapshot.data[index], snapshot.data[index].data["itemName"], snapshot.data[index].data["itemIncludes"], snapshot.data[index].data["itemPrice"].toString(), snapshot.data[index].data["itemURL"], snapshot.data[index].data["itemAvailable"]);
                     }
                 );
               }
