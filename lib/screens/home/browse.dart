@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ctseprojectapp/screens/home/cart.dart';
+import 'package:ctseprojectapp/screens/home/itemDetails.dart';
 import 'package:ctseprojectapp/shared/loading.dart';
 import 'package:flutter/material.dart';
 
@@ -45,7 +46,7 @@ class _BrowseState extends State<Browse> {
                     itemCount: snapshot.data.length,
                     padding: EdgeInsets.only(top: 10.0),
                     itemBuilder: (_, index){
-                      return itemCard(snapshot.data[index].data["itemName"], snapshot.data[index].data["itemIncludes"], snapshot.data[index].data["itemPrice"].toString(), snapshot.data[index].data["itemURL"], true);
+                      return itemCard(snapshot.data[index], snapshot.data[index].data["itemName"], snapshot.data[index].data["itemIncludes"], snapshot.data[index].data["itemPrice"].toString(), snapshot.data[index].data["itemURL"], true);
                     }
                 );
               }
@@ -55,12 +56,12 @@ class _BrowseState extends State<Browse> {
     );
   }
 
-  Widget itemCard(itemName, includes , price, imgPath, available) {
+  Widget itemCard(DocumentSnapshot item, itemName, includes , price, imgPath, available) {
 
     return InkWell(
       onTap: () {
         if (available) {
-          widget.pushPage(context, true, 2);
+          toItemDetail(context, true, item);
         }
       },
       child: Padding(
@@ -111,7 +112,7 @@ class _BrowseState extends State<Browse> {
                                 image: NetworkImage(imgPath),
                                 fit: BoxFit.contain)),
                       ),
-                      SizedBox(width: 4.0),
+                      SizedBox(width: 40.0),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -168,6 +169,16 @@ class _BrowseState extends State<Browse> {
                       )
                     ],
                   )))),
+    );
+  }
+
+  void toItemDetail(BuildContext context, bool isHorizontalNavigation, DocumentSnapshot item) {
+
+    Navigator.of(context, rootNavigator: !isHorizontalNavigation).push(
+      MaterialPageRoute(
+        builder: (context) => ItemDetails(itemSnap: item),
+        fullscreenDialog: !isHorizontalNavigation,
+      ),
     );
   }
 }

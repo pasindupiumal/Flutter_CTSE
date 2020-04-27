@@ -1,10 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class Cart extends StatefulWidget {
 
-  final Function pushPage;
+   final Function pushPage;
 
-  Cart ({this.pushPage});
+   Cart({this.pushPage});
 
 
   @override
@@ -17,9 +18,9 @@ class _CartState extends State<Cart> {
     return Scaffold(
 
       body: Container(
-        child: Center(
-          child: Text("Cart"),
-        )
+          child: Center(
+            child: Text("Cart"),
+          )
       ),
     );
   }
