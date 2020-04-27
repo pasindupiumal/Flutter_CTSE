@@ -108,8 +108,8 @@ class _BrowseState extends State<Browse> {
                       ),
                       SizedBox(width: 10.0),
                       Container(
-                        height: 150.0,
-                        width: 125.0,
+                        height: 100.0,
+                        width: 80.0,
                         decoration: BoxDecoration(
                             image: DecorationImage(
                                 image: NetworkImage(imgPath),
