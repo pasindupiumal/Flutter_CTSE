@@ -13,6 +13,9 @@ class ItemDetails extends StatefulWidget {
 }
 
 class _ItemDetailsState extends State<ItemDetails> {
+
+  double quantity = 1;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,35 +36,41 @@ class _ItemDetailsState extends State<ItemDetails> {
                 fontSize: 24.0,
                 fontWeight: FontWeight.bold
             ),),
-            SizedBox(height: 10.0),
-            Text("\$1.80 / Kg", style: TextStyle(
-                fontSize: 16.0
+            SizedBox(height: 20.0),
+            Text("\Rs. " + widget.itemSnap.data["itemPrice"].toString(), style: TextStyle(
+                fontSize: 17.0
             ),),
+            SizedBox(height: 7.0),
             Row(
               children: <Widget>[
-                Text("100 gms for 1-2 pieces", style: TextStyle(
+                Text("Includes: " + widget.itemSnap.data["itemIncludes"], style: TextStyle(
                     color: Colors.grey.shade700
                 ),),
                 Spacer(),
-                Icon(Icons.person, size: 14.0, color: Colors.pink.shade300,),
-                Text("160"),
+                Text("Rs. " + (quantity.round() * widget.itemSnap.data["itemPrice"]).toString()),
               ],
             ),
-            SizedBox(height: 20.0),
+            SizedBox(height: 30.0),
             Slider(
-              onChanged: (value){},
+              onChanged: (value){
+                setState(() {
+                  quantity = value;
+                });
+              },
               min: 1,
-              max: 5,
-              value: 1.5,
+              max: 20,
+              value: quantity,
+              divisions: 20,
 
             ),
+            SizedBox(height: 8.0),
             Row(
               children: <Widget>[
-                Text("1.5 kg (12-14 pieces approx.)", style: TextStyle(
+                Text("Quantity", style: TextStyle(
                     color: Colors.grey.shade700
                 )),
                 Spacer(),
-                Text("\$ 2.70", style: TextStyle(
+                Text(" " + quantity.round().toString(), style: TextStyle(
                     fontSize: 16.0
                 ),),
               ],
@@ -72,17 +81,30 @@ class _ItemDetailsState extends State<ItemDetails> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5.0)
                   ),
-                  color: Colors.blue.shade200,
+                  color: Colors.blue.shade400,
                   textColor: Colors.white,
                   child: Text("Add to Cart"),
                   onPressed: (){},
                 )
             ),
-            SizedBox(height: 60.0),
-            Center(child: Icon(Icons.keyboard_arrow_up)),
-            Center(child: Text("Browse More", style: TextStyle(
-                color: Colors.pink.shade300
-            ),),),
+            SizedBox(height: 35.0),
+            Center(
+                child: FlatButton.icon(
+                  icon: Icon(Icons.keyboard_arrow_up),
+                  onPressed: (){
+                    Navigator.pop(context);
+                  },
+                  label: Text(""),
+                )
+            ),
+            Center(
+                child: Text(
+                  "Browse More",
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                )
+            ),
           ],
         ),
       ),
