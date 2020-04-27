@@ -6,6 +6,8 @@ import 'package:ctseprojectapp/screens/home/profile.dart';
 import 'package:ctseprojectapp/services/auth.dart';
 import 'package:flutter/material.dart';
 
+import 'foodItem.dart';
+
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
@@ -38,6 +40,7 @@ class _HomeState extends State<Home> {
       navigatorKey: GlobalKey<NavigatorState>(),
     ),
   ];
+  List<FoodItem> cartList = [];
 
 
   @override
@@ -109,7 +112,7 @@ class _HomeState extends State<Home> {
   Widget getPage(int index){
 
     if (index == 0){
-      return Browse(pushPage: pushPage);
+      return Browse(pushPage: pushPage, cartList: cartList);
     }
     else if(index == 1){
       return Cart(pushPage: pushPage);

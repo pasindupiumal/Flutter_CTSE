@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ctseprojectapp/screens/home/foodItem.dart';
 import 'package:flutter/material.dart';
 
 class ItemDetails extends StatefulWidget {
 
   final DocumentSnapshot itemSnap;
+  final List<FoodItem> cartList;
 
-  ItemDetails({this.itemSnap});
+  ItemDetails({this.itemSnap, this.cartList});
 
 
   @override
@@ -84,7 +86,18 @@ class _ItemDetailsState extends State<ItemDetails> {
                   color: Colors.blue.shade400,
                   textColor: Colors.white,
                   child: Text("Add to Cart"),
-                  onPressed: (){},
+                  onPressed: (){
+                    setState(() {
+                      widget.cartList.add(
+                        FoodItem(
+                          item: widget.itemSnap,
+                          quantity: quantity.round(),
+                        )
+                      );
+
+                      Navigator.pop(context);
+                    });
+                  },
                 )
             ),
             SizedBox(height: 35.0),

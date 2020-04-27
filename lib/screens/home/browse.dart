@@ -1,15 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ctseprojectapp/screens/home/cart.dart';
 import 'package:ctseprojectapp/screens/home/itemDetails.dart';
 import 'package:ctseprojectapp/shared/loading.dart';
 import 'package:flutter/material.dart';
+
+import 'foodItem.dart';
 
 
 class Browse extends StatefulWidget {
 
   final Function pushPage;
 
-  Browse ({this.pushPage});
+  final List<FoodItem> cartList;
+
+  Browse ({this.pushPage, this.cartList});
 
   @override
   _BrowseState createState() => _BrowseState();
@@ -44,7 +47,7 @@ class _BrowseState extends State<Browse> {
 
                 return ListView.builder(
                     itemCount: snapshot.data.length,
-                    padding: EdgeInsets.only(top: 10.0),
+                    padding: EdgeInsets.only(top: 15.0, left: 10, right: 10),
                     itemBuilder: (_, index){
                       return itemCard(snapshot.data[index], snapshot.data[index].data["itemName"], snapshot.data[index].data["itemIncludes"], snapshot.data[index].data["itemPrice"].toString(), snapshot.data[index].data["itemURL"], true);
                     }
@@ -176,7 +179,7 @@ class _BrowseState extends State<Browse> {
 
     Navigator.of(context, rootNavigator: !isHorizontalNavigation).push(
       MaterialPageRoute(
-        builder: (context) => ItemDetails(itemSnap: item),
+        builder: (context) => ItemDetails(itemSnap: item, cartList: widget.cartList),
         fullscreenDialog: !isHorizontalNavigation,
       ),
     );
