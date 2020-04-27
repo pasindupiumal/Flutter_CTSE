@@ -14,15 +14,22 @@ class History extends StatefulWidget {
 
 class _HistoryState extends State<History> {
 
-  Future getItems() async {
+  var firestore = Firestore.instance;
 
-    var firestore = Firestore.instance;
+  Future getItems() async {
 
     QuerySnapshot qn = await firestore.collection("ctse_items").getDocuments();
 
     return qn.documents;
   }
 
+  Future deleteItem(DocumentSnapshot item) async {
+    await firestore.collection("ctse_items").document(item.documentID).delete();
+    setState(() {
+
+    });
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +84,7 @@ class _HistoryState extends State<History> {
                                       IconButton(
                                         icon: Icon(Icons.delete),
                                         onPressed: (){
-
+                                          deleteItem(snapshot.data[index]);
                                         },
                                       ),
 
