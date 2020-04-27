@@ -29,9 +29,28 @@ class _CartState extends State<Cart> {
     else{
 
       return ListView.builder(
-          itemCount: widget.cartList.length,
+          itemCount: widget.cartList.length +1,
           padding: EdgeInsets.only(top: 15.0, left: 10),
           itemBuilder: (BuildContext context, int index){
+
+            if (index == widget.cartList.length){
+              return Column(
+                children: <Widget>[
+                  Center(
+                      child: RaisedButton(
+
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.0)
+                          ),
+                          color: Colors.blue.shade400,
+                          textColor: Colors.white,
+                          child: Text("Checkout Items"),
+                          onPressed: () {}
+                      )
+                  ),
+                ],
+              );
+            }
             return ListTile(
               leading: CircleAvatar(
                 backgroundImage: NetworkImage(widget.cartList[index].item.data["itemURL"]),
