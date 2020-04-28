@@ -24,4 +24,29 @@ class DatabaseService {
     }
   }
 
+  //Add new item
+  Future addItem(newItem) async {
+
+    try{
+
+      firestore.runTransaction(
+          (Transaction transaction) async {
+            CollectionReference reference = firestore.collection("ctse_items");
+
+            await reference.add({
+              'itemName': newItem["itemName"],
+              'itemIncludes': newItem["itemIncludes"],
+              'itemPrice': newItem["itemPrice"],
+              'itemURL': newItem['itemURL'],
+              'itemAvailable': newItem["itemAvailable"],
+            });
+          }
+      );
+      return true;
+    }
+    catch(error){
+      return error.toString();
+    }
+  }
+
 }

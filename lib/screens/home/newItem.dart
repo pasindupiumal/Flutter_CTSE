@@ -1,3 +1,4 @@
+import 'package:ctseprojectapp/services/database.dart';
 import 'package:ctseprojectapp/shared/loading.dart';
 import 'package:flutter/material.dart';
 import 'custom_dropdown.dart' as custom;
@@ -10,14 +11,17 @@ class NewFoodItem extends StatefulWidget {
 class _NewFoodItemState extends State<NewFoodItem> {
 
   final _keyForm = GlobalKey<FormState>();
+  final _databaseService = DatabaseService();
   bool loading = false;
   final itemStatusOptions = [ "Available", "Unavailable"];
 
   String itemName = '';
   String itemIncludes = '';
   String error = '';
-  bool itemStatus = false;
+  bool itemStatus = true;
   String _itemStatusString;
+  String itemPrice;
+  String itemURL;
 
 
   @override
@@ -102,7 +106,7 @@ class _NewFoodItemState extends State<NewFoodItem> {
                                 return null;
                               }
                             },
-                            obscureText: true,
+                            obscureText: false,
                             onChanged: (value) {
                               setState( () => itemIncludes = value);
                             }
@@ -142,9 +146,9 @@ class _NewFoodItemState extends State<NewFoodItem> {
                                 return null;
                               }
                             },
-                            obscureText: true,
+                            obscureText: false,
                             onChanged: (value) {
-                              setState( () => itemIncludes = value);
+                              setState( () => itemPrice = value);
                             }
                         ),
                         SizedBox(height: 20.0),
@@ -193,10 +197,47 @@ class _NewFoodItemState extends State<NewFoodItem> {
                           },
                         ),
                         SizedBox(height: 20.0),
+                        TextFormField(
+                            decoration: InputDecoration(
+                              hintText: 'Item Image Link',
+                              fillColor: Colors.white,
+                              filled: true,
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Colors.grey[500],
+                                    width: 2.0
+                                ),
+                                borderRadius: BorderRadius.circular(15.0),
+
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Colors.blueAccent,
+                                    width: 2.0
+                                ),
+                                borderRadius: BorderRadius.circular(15.0),
+
+                              ),
+
+                            ),
+                            validator: (value){
+                              if(value.isEmpty){
+                                return 'Item image link field cannot be empty.';
+                              }
+                              else{
+                                return null;
+                              }
+                            },
+                            obscureText: false,
+                            onChanged: (value) {
+                              setState( () => itemURL = value);
+                            }
+                        ),
+                        SizedBox(height: 40.0),
                         RaisedButton(
                             color: Colors.blueAccent,
                             child: Text(
-                              'Sign In',
+                              'Proceed',
                               style: TextStyle(
                                 color: Colors.white,
                               ),
@@ -204,12 +245,40 @@ class _NewFoodItemState extends State<NewFoodItem> {
                             ),
                             onPressed: () async {
 
-                              if(_keyForm.currentState.validate()){
+                              if(true){
+
+                                Map newItem;
 
                                 setState(() {
                                   loading = true;
+
+                                  newItem = {
+                                    'itemAvailable': itemStatus,
+                                    'itemIncludes': itemIncludes,
+                                    'itemName': itemName,
+                                    'itemPrice': double.parse(itemPrice),
+                                    'itemURL': itemURL,
+
+                                  };
                                 });
 
+
+                                dynamic result = _databaseService.addItem(newItem);
+
+                                if (result is String){
+                                    setState(() {
+                                      loading = false;
+                                    });
+                                    _showToast(context, "Cannot add item. Error occurred");
+                                }
+                                else{
+                                    setState(() {
+                                      loading = false;
+                                    });
+
+                                    _showToast(context, "Item added successfully");
+                                    Navigator.pop(context);
+                                }
                               }
                             }
                         ),
@@ -238,5 +307,19 @@ class _NewFoodItemState extends State<NewFoodItem> {
     } on FormatException {
       return false;
     }
+  }
+
+  void _showToast(BuildContext context, message){
+
+    final scaffold = Scaffold.of(context);
+    scaffold.showSnackBar(
+        SnackBar(
+            content: Text(message),
+            action: SnackBarAction(
+              label: 'Hide',
+              onPressed: scaffold.hideCurrentSnackBar,
+            )
+        )
+    );
   }
 }
