@@ -1,5 +1,4 @@
 import 'package:ctseprojectapp/models/user.dart';
-import 'package:ctseprojectapp/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
@@ -58,9 +57,6 @@ class AuthService {
 
       AuthResult result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       FirebaseUser user = result.user;
-
-      //Create a new document for the user with the uid
-      await DatabaseService(uid: _userFromFirebaseUser(user).userID).updateUserData('0', 'New ctse member', 100);
 
       //return the user
       return _userFromFirebaseUser(user);

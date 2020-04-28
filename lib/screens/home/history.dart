@@ -1,4 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ctseprojectapp/screens/home/newItem.dart';
+import 'package:ctseprojectapp/services/database.dart';
 import 'package:ctseprojectapp/shared/loading.dart';
 import 'package:flutter/material.dart';
 
@@ -14,22 +15,7 @@ class History extends StatefulWidget {
 
 class _HistoryState extends State<History> {
 
-  var firestore = Firestore.instance;
-
-  Future getItems() async {
-
-    QuerySnapshot qn = await firestore.collection("ctse_items").getDocuments();
-
-    return qn.documents;
-  }
-
-  Future deleteItem(DocumentSnapshot item) async {
-    await firestore.collection("ctse_items").document(item.documentID).delete();
-    setState(() {
-
-    });
-
-  }
+  final _databaseService = DatabaseService();
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +23,7 @@ class _HistoryState extends State<History> {
     return Scaffold(
         body: Container(
             child: FutureBuilder(
-                future: getItems(),
+                future: _databaseService.getItems(),
                 builder: (_, snapshot){
 
                   if(snapshot.connectionState == ConnectionState.waiting){
@@ -55,8 +41,10 @@ class _HistoryState extends State<History> {
                                 ),
                                 color: Colors.blue.shade400,
                                 textColor: Colors.white,
-                                child: Text("Add to Cart"),
-                                onPressed: () {}
+                                child: Text("Add New Item"),
+                                onPressed: () {
+                                  _toAddNewItem(context, true);
+                                }
                             )
                         ),
                         SizedBox(height: 40.0),
@@ -83,8 +71,22 @@ class _HistoryState extends State<History> {
                                       SizedBox(width: 10),
                                       IconButton(
                                         icon: Icon(Icons.delete),
-                                        onPressed: (){
-                                          deleteItem(snapshot.data[index]);
+                                        onPressed: () async {
+
+                                          dynamic result = await _databaseService.deleteItem(snapshot.data[index]);
+
+                                          if ( result is String){
+                                            _showToast(context, 'Error occurred');
+                                          }
+                                          else{
+                                            _showToast(context, 'Item deleted successfully');
+
+                                            setState(() {
+
+                                            });
+                                          }
+
+
                                         },
                                       ),
 
@@ -99,6 +101,30 @@ class _HistoryState extends State<History> {
                 }
             )
         )
+    );
+  }
+
+  void _toAddNewItem(BuildContext context, bool isHorizontalNavigation) {
+
+    Navigator.of(context, rootNavigator: !isHorizontalNavigation).push(
+      MaterialPageRoute(
+        builder: (context) => NewFoodItem(),
+        fullscreenDialog: !isHorizontalNavigation,
+      ),
+    );
+  }
+
+  void _showToast(BuildContext context, message){
+
+    final scaffold = Scaffold.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content: Text(message),
+        action: SnackBarAction(
+          label: 'Hide',
+          onPressed: scaffold.hideCurrentSnackBar,
+        )
+      )
     );
   }
 }

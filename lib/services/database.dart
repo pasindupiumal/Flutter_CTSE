@@ -2,23 +2,26 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DatabaseService {
 
-  final String uid;
+  final Firestore firestore = Firestore.instance;
 
-  DatabaseService({this.uid});
+  //Get all items
+  Future getItems() async {
 
-  //Collection reference
-  final CollectionReference ctseCollection = Firestore.instance.collection('ctse');
+    QuerySnapshot querySnapshot = await firestore.collection("ctse_items").getDocuments();
 
-  //Update user data
-  Future updateUserData(String sugar, String name, int strength) async {
-
-    return await ctseCollection.document(uid).setData({
-      'sugars': sugar,
-      'name': name,
-      'strength': strength
-    });
-
+    return querySnapshot.documents;
   }
 
+  //Delete item
+  Future deleteItem(DocumentSnapshot item) async {
+
+    try{
+      await firestore.collection("ctse_items").document(item.documentID).delete();
+      return true;
+    }
+    catch(error){
+      return error.toString();
+    }
+  }
 
 }

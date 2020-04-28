@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ctseprojectapp/screens/home/itemDetails.dart';
+import 'package:ctseprojectapp/services/database.dart';
 import 'package:ctseprojectapp/shared/loading.dart';
 import 'package:flutter/material.dart';
 
@@ -20,14 +21,7 @@ class Browse extends StatefulWidget {
 
 class _BrowseState extends State<Browse> {
 
-  Future getItems() async {
-
-    var firestore = Firestore.instance;
-
-    QuerySnapshot qn = await firestore.collection("ctse_items").getDocuments();
-
-    return qn.documents;
-  }
+  final _databaseService = DatabaseService();
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +31,16 @@ class _BrowseState extends State<Browse> {
       body: Container(
 
         child: FutureBuilder(
-            future: getItems(),
+            future: _databaseService.getItems(),
             builder: (_, snapshot){
 
               if(snapshot.connectionState == ConnectionState.waiting){
                 return Loading();
+              }
+              else if(snapshot.data.length == 0){
+                return Center(
+                  child: Text("No Items Found"),
+                );
               }
               else {
 
