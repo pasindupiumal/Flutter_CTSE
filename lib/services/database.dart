@@ -2,23 +2,83 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DatabaseService {
 
-  final String uid;
+  final Firestore firestore = Firestore.instance;
 
-  DatabaseService({this.uid});
+  //Get all items
+  Future getItems() async {
 
-  //Collection reference
-  final CollectionReference ctseCollection = Firestore.instance.collection('ctse');
+    QuerySnapshot querySnapshot = await firestore.collection("ctse_items").getDocuments();
 
-  //Update user data
-  Future updateUserData(String sugar, String name, int strength) async {
-
-    return await ctseCollection.document(uid).setData({
-      'sugars': sugar,
-      'name': name,
-      'strength': strength
-    });
-
+    return querySnapshot.documents;
   }
 
+  //Delete item
+  Future deleteItem(DocumentSnapshot item) async {
+
+    try{
+
+      firestore.runTransaction(
+              (Transaction transaction) async {
+            CollectionReference reference = firestore.collection("ctse_items");
+
+            await reference.document(item.documentID).delete();
+          }
+      );
+
+      return true;
+    }
+    catch(error){
+      return error.toString();
+    }
+  }
+
+  //Add new item
+  Future addItem(newItem) async {
+
+    try{
+
+      firestore.runTransaction(
+          (Transaction transaction) async {
+            CollectionReference reference = firestore.collection("ctse_items");
+
+            await reference.add({
+              'itemName': newItem["itemName"],
+              'itemIncludes': newItem["itemIncludes"],
+              'itemPrice': newItem["itemPrice"],
+              'itemURL': newItem['itemURL'],
+              'itemAvailable': newItem["itemAvailable"],
+            });
+          }
+      );
+      return true;
+    }
+    catch(error){
+      return error.toString();
+    }
+  }
+
+  Future updateItem(newItem, DocumentSnapshot oldItem) async {
+
+    try{
+
+      firestore.runTransaction(
+              (Transaction transaction) async {
+            DocumentReference reference = firestore.collection("ctse_items").document(oldItem.documentID);
+
+            await reference.setData({
+              'itemName': newItem["itemName"],
+              'itemIncludes': newItem["itemIncludes"],
+              'itemPrice': newItem["itemPrice"],
+              'itemURL': newItem['itemURL'],
+              'itemAvailable': newItem["itemAvailable"],
+            });
+          }
+      );
+      return true;
+    }
+    catch(error){
+      return error.toString();
+    }
+  }
 
 }
