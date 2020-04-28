@@ -1,18 +1,24 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ctseprojectapp/services/database.dart';
 import 'package:ctseprojectapp/shared/loading.dart';
 import 'package:flutter/material.dart';
 import 'custom_dropdown.dart' as custom;
 
-class NewFoodItem extends StatefulWidget {
+class UpdateItem extends StatefulWidget {
+
+  DocumentSnapshot item;
+
+  UpdateItem({this.item});
+
   @override
-  _NewFoodItemState createState() => _NewFoodItemState();
+  _UpdateItemState createState() => _UpdateItemState();
 }
 
-class _NewFoodItemState extends State<NewFoodItem> {
+class _UpdateItemState extends State<UpdateItem> {
 
-  final _keyForm = GlobalKey<FormState>();
   final _databaseService = DatabaseService();
   bool loading = false;
+  final _keyForm = GlobalKey<FormState>();
   final itemStatusOptions = [ "Available", "Unavailable"];
 
   String itemName = '';
@@ -23,6 +29,22 @@ class _NewFoodItemState extends State<NewFoodItem> {
   String itemPrice;
   String itemURL;
 
+  @override
+  void initState(){
+
+    if(widget.item.data["itemAvailable"] == true){
+      _itemStatusString = "Available";
+    }
+    else{
+      _itemStatusString = "Unavailable";
+    }
+
+    itemName = widget.item.data["itemName"];
+    itemIncludes = widget.item.data["itemIncludes"];
+    itemStatus = widget.item.data["itemAvailable"];
+    itemPrice = widget.item.data["itemPrice"].toString();
+    itemURL = widget.item.data["itemURL"];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +62,7 @@ class _NewFoodItemState extends State<NewFoodItem> {
                       children: <Widget>[
                         SizedBox(height: 20.0),
                         TextFormField(
+                            initialValue: widget.item.data["itemName"],
                             decoration: InputDecoration(
                               hintText: 'Item Name',
                               fillColor: Colors.white,
@@ -76,6 +99,7 @@ class _NewFoodItemState extends State<NewFoodItem> {
                         ),
                         SizedBox(height: 20.0),
                         TextFormField(
+                            initialValue: widget.item.data["itemIncludes"],
                             decoration: InputDecoration(
                               hintText: 'Item Includes',
                               fillColor: Colors.white,
@@ -113,6 +137,7 @@ class _NewFoodItemState extends State<NewFoodItem> {
                         ),
                         SizedBox(height: 20.0),
                         TextFormField(
+                            initialValue: widget.item.data["itemPrice"].toString(),
                             decoration: InputDecoration(
                               hintText: 'Item Price',
                               fillColor: Colors.white,
@@ -154,7 +179,7 @@ class _NewFoodItemState extends State<NewFoodItem> {
                         SizedBox(height: 20.0),
                         custom.DropdownButtonFormField(
                           decoration: InputDecoration(
-                            hintText: 'Item Price',
+                            hintText: 'Item Availability',
                             fillColor: Colors.white,
                             filled: true,
                             enabledBorder: OutlineInputBorder(
@@ -175,7 +200,7 @@ class _NewFoodItemState extends State<NewFoodItem> {
                             ),
 
                           ),
-                          value: _itemStatusString ?? "Available",
+                          value: _itemStatusString ?? 'Unavailable',
                           height: 60,
                           items: itemStatusOptions.map((item){
                             return custom.DropdownMenuItem(
@@ -198,6 +223,7 @@ class _NewFoodItemState extends State<NewFoodItem> {
                         ),
                         SizedBox(height: 20.0),
                         TextFormField(
+                            initialValue: widget.item.data["itemURL"],
                             decoration: InputDecoration(
                               hintText: 'Item Image Link',
                               fillColor: Colors.white,
@@ -237,7 +263,7 @@ class _NewFoodItemState extends State<NewFoodItem> {
                         RaisedButton(
                             color: Colors.blueAccent,
                             child: Text(
-                              'Proceed',
+                              'Update Item Details',
                               style: TextStyle(
                                 color: Colors.white,
                               ),
@@ -263,21 +289,21 @@ class _NewFoodItemState extends State<NewFoodItem> {
                                 });
 
 
-                                dynamic result = _databaseService.addItem(newItem);
+                                dynamic result = _databaseService.updateItem(newItem, widget.item);
 
                                 if (result is String){
-                                    setState(() {
-                                      loading = false;
-                                    });
-                                    _showToast(context, "Cannot add item. Error occurred");
+                                  setState(() {
+                                    loading = false;
+                                  });
+                                  _showToast(context, "Item details cannot be updated. Error occurred");
                                 }
                                 else{
-                                    setState(() {
-                                      loading = false;
-                                    });
+                                  setState(() {
+                                    loading = false;
+                                  });
 
-                                    _showToast(context, "Item added successfully");
-                                    Navigator.pop(context);
+                                  _showToast(context, "Item details updated successfully");
+                                  Navigator.pop(context);
                                 }
                               }
                             }
@@ -295,9 +321,9 @@ class _NewFoodItemState extends State<NewFoodItem> {
               ),
             ]
         ),
+
       ),
     );
-
   }
 
   bool isDouble(String value){

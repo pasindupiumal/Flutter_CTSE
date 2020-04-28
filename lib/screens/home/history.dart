@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ctseprojectapp/screens/home/newItem.dart';
+import 'package:ctseprojectapp/screens/home/updateItem.dart';
 import 'package:ctseprojectapp/services/database.dart';
 import 'package:ctseprojectapp/shared/loading.dart';
 import 'package:flutter/material.dart';
@@ -65,7 +67,7 @@ class _HistoryState extends State<History> {
                                       IconButton(
                                         icon: Icon(Icons.edit),
                                         onPressed: (){
-
+                                          _toUpdateItem(context, true, snapshot.data[index]);
                                         },
                                       ),
                                       SizedBox(width: 10),
@@ -109,6 +111,16 @@ class _HistoryState extends State<History> {
     Navigator.of(context, rootNavigator: !isHorizontalNavigation).push(
       MaterialPageRoute(
         builder: (context) => NewFoodItem(),
+        fullscreenDialog: !isHorizontalNavigation,
+      ),
+    );
+  }
+
+  void _toUpdateItem(BuildContext context, bool isHorizontalNavigation, DocumentSnapshot item) {
+
+    Navigator.of(context, rootNavigator: !isHorizontalNavigation).push(
+      MaterialPageRoute(
+        builder: (context) => UpdateItem(item: item),
         fullscreenDialog: !isHorizontalNavigation,
       ),
     );

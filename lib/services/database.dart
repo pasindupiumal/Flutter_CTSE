@@ -57,4 +57,28 @@ class DatabaseService {
     }
   }
 
+  Future updateItem(newItem, DocumentSnapshot oldItem) async {
+
+    try{
+
+      firestore.runTransaction(
+              (Transaction transaction) async {
+            DocumentReference reference = firestore.collection("ctse_items").document(oldItem.documentID);
+
+            await reference.setData({
+              'itemName': newItem["itemName"],
+              'itemIncludes': newItem["itemIncludes"],
+              'itemPrice': newItem["itemPrice"],
+              'itemURL': newItem['itemURL'],
+              'itemAvailable': newItem["itemAvailable"],
+            });
+          }
+      );
+      return true;
+    }
+    catch(error){
+      return error.toString();
+    }
+  }
+
 }
