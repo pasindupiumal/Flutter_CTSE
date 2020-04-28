@@ -16,7 +16,15 @@ class DatabaseService {
   Future deleteItem(DocumentSnapshot item) async {
 
     try{
-      await firestore.collection("ctse_items").document(item.documentID).delete();
+
+      firestore.runTransaction(
+              (Transaction transaction) async {
+            CollectionReference reference = firestore.collection("ctse_items");
+
+            await reference.document(item.documentID).delete();
+          }
+      );
+
       return true;
     }
     catch(error){
