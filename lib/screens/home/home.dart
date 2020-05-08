@@ -31,7 +31,7 @@ class _HomeState extends State<Home> {
     ),
     AppFlow(
       title: 'Manage',
-      iconData: Icons.history,
+      iconData: Icons.security,
       navigatorKey: GlobalKey<NavigatorState>(),
     ),
     AppFlow(
