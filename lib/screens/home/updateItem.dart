@@ -53,6 +53,13 @@ class _UpdateItemState extends State<UpdateItem> {
 
       body: loading ? Loading() : Container(
 
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("images/additemback.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
+
         padding: EdgeInsets.symmetric(vertical:20, horizontal: 50),
         child: ListView(
             children: <Widget>[
@@ -62,14 +69,15 @@ class _UpdateItemState extends State<UpdateItem> {
                       children: <Widget>[
                         SizedBox(height: 20.0),
                         TextFormField(
-                            initialValue: widget.item.data["itemName"],
+                            initialValue: widget.item.data["itemName"],style: TextStyle(color: Colors.white),
                             decoration: InputDecoration(
                               hintText: 'Item Name',
-                              fillColor: Colors.white,
+                              hintStyle: TextStyle(color: Colors.white),
+                              fillColor: Color.fromARGB(80, 40, 26, 13),
                               filled: true,
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Colors.grey[500],
+                                    color: Color.fromARGB(80, 40, 26, 13),
                                     width: 2.0
                                 ),
                                 borderRadius: BorderRadius.circular(15.0),
@@ -77,7 +85,7 @@ class _UpdateItemState extends State<UpdateItem> {
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Colors.blueAccent,
+                                    color: Color.fromARGB(80, 40, 26, 13),
                                     width: 2.0
                                 ),
                                 borderRadius: BorderRadius.circular(15.0),
@@ -99,14 +107,15 @@ class _UpdateItemState extends State<UpdateItem> {
                         ),
                         SizedBox(height: 20.0),
                         TextFormField(
-                            initialValue: widget.item.data["itemIncludes"],
+                            initialValue: widget.item.data["itemIncludes"], style: TextStyle(color: Colors.white),
                             decoration: InputDecoration(
                               hintText: 'Item Includes',
-                              fillColor: Colors.white,
+                              hintStyle: TextStyle(color: Colors.white),
+                              fillColor: Color.fromARGB(80, 40, 26, 13),
                               filled: true,
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Colors.grey[500],
+                                    color: Color.fromARGB(80, 40, 26, 13),
                                     width: 2.0
                                 ),
                                 borderRadius: BorderRadius.circular(15.0),
@@ -114,7 +123,7 @@ class _UpdateItemState extends State<UpdateItem> {
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Colors.blueAccent,
+                                    color: Color.fromARGB(80, 40, 26, 13),
                                     width: 2.0
                                 ),
                                 borderRadius: BorderRadius.circular(15.0),
@@ -137,14 +146,15 @@ class _UpdateItemState extends State<UpdateItem> {
                         ),
                         SizedBox(height: 20.0),
                         TextFormField(
-                            initialValue: widget.item.data["itemPrice"].toString(),
+                            initialValue: widget.item.data["itemPrice"].toString(),style: TextStyle(color: Colors.white),
                             decoration: InputDecoration(
                               hintText: 'Item Price',
-                              fillColor: Colors.white,
+                              hintStyle: TextStyle(color: Colors.white),
+                              fillColor: Color.fromARGB(80, 40, 26, 13),
                               filled: true,
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Colors.grey[500],
+                                    color: Color.fromARGB(80, 40, 26, 13),
                                     width: 2.0
                                 ),
                                 borderRadius: BorderRadius.circular(15.0),
@@ -152,7 +162,7 @@ class _UpdateItemState extends State<UpdateItem> {
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Colors.blueAccent,
+                                    color: Color.fromARGB(80, 40, 26, 13),
                                     width: 2.0
                                 ),
                                 borderRadius: BorderRadius.circular(15.0),
@@ -180,11 +190,11 @@ class _UpdateItemState extends State<UpdateItem> {
                         custom.DropdownButtonFormField(
                           decoration: InputDecoration(
                             hintText: 'Item Availability',
-                            fillColor: Colors.white,
+                            fillColor: Color.fromARGB(80, 40, 26, 13),
                             filled: true,
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Colors.grey[500],
+                                  color: Color.fromARGB(80, 40, 26, 13),
                                   width: 2.0
                               ),
                               borderRadius: BorderRadius.circular(15.0),
@@ -192,7 +202,7 @@ class _UpdateItemState extends State<UpdateItem> {
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Colors.blueAccent,
+                                  color: Color.fromARGB(80, 40, 26, 13),
                                   width: 2.0
                               ),
                               borderRadius: BorderRadius.circular(15.0),
@@ -201,6 +211,7 @@ class _UpdateItemState extends State<UpdateItem> {
 
                           ),
                           value: _itemStatusString ?? 'Unavailable',
+                          //style: TextStyle(color: Colors.white),
                           height: 60,
                           items: itemStatusOptions.map((item){
                             return custom.DropdownMenuItem(
@@ -223,14 +234,15 @@ class _UpdateItemState extends State<UpdateItem> {
                         ),
                         SizedBox(height: 20.0),
                         TextFormField(
-                            initialValue: widget.item.data["itemURL"],
+                            initialValue: widget.item.data["itemURL"],style: TextStyle(color: Colors.white),
                             decoration: InputDecoration(
                               hintText: 'Item Image Link',
-                              fillColor: Colors.white,
+                              hintStyle: TextStyle(color: Colors.white),
+                              fillColor: Color.fromARGB(80, 40, 26, 13),
                               filled: true,
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Colors.grey[500],
+                                    color: Color.fromARGB(80, 40, 26, 13),
                                     width: 2.0
                                 ),
                                 borderRadius: BorderRadius.circular(15.0),
@@ -238,7 +250,7 @@ class _UpdateItemState extends State<UpdateItem> {
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Colors.blueAccent,
+                                    color: Color.fromARGB(80, 40, 26, 13),
                                     width: 2.0
                                 ),
                                 borderRadius: BorderRadius.circular(15.0),
@@ -261,7 +273,7 @@ class _UpdateItemState extends State<UpdateItem> {
                         ),
                         SizedBox(height: 40.0),
                         RaisedButton(
-                            color: Colors.blueAccent,
+                            color: Colors.orangeAccent,
                             child: Text(
                               'Update Item Details',
                               style: TextStyle(

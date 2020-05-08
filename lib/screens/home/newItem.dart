@@ -1,6 +1,7 @@
 import 'package:ctseprojectapp/services/database.dart';
 import 'package:ctseprojectapp/shared/loading.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'custom_dropdown.dart' as custom;
 
 class NewFoodItem extends StatefulWidget {
@@ -31,6 +32,13 @@ class _NewFoodItemState extends State<NewFoodItem> {
 
       body: loading ? Loading() : Container(
 
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("images/additemback.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
+
         padding: EdgeInsets.symmetric(vertical:20, horizontal: 50),
         child: ListView(
             children: <Widget>[
@@ -40,13 +48,16 @@ class _NewFoodItemState extends State<NewFoodItem> {
                       children: <Widget>[
                         SizedBox(height: 20.0),
                         TextFormField(
+                            style: TextStyle(
+                              color: Colors.white,),
                             decoration: InputDecoration(
                               hintText: 'Item Name',
-                              fillColor: Colors.white,
+                              hintStyle: TextStyle(color: Colors.white),
+                              fillColor: Color.fromARGB(80, 40, 26, 13),
                               filled: true,
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Colors.grey[500],
+                                    color: Color.fromARGB(80, 40, 26, 13),
                                     width: 2.0
                                 ),
                                 borderRadius: BorderRadius.circular(15.0),
@@ -54,7 +65,7 @@ class _NewFoodItemState extends State<NewFoodItem> {
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Colors.blueAccent,
+                                    color: Color.fromARGB(80, 40, 26, 13),
                                     width: 2.0
                                 ),
                                 borderRadius: BorderRadius.circular(15.0),
@@ -76,13 +87,16 @@ class _NewFoodItemState extends State<NewFoodItem> {
                         ),
                         SizedBox(height: 20.0),
                         TextFormField(
+                            style: TextStyle(
+                              color: Colors.white,),
                             decoration: InputDecoration(
                               hintText: 'Item Includes',
-                              fillColor: Colors.white,
+                              hintStyle: TextStyle(color: Colors.white),
+                              fillColor: Color.fromARGB(80, 40, 26, 13),
                               filled: true,
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Colors.grey[500],
+                                    color: Color.fromARGB(80, 40, 26, 13),
                                     width: 2.0
                                 ),
                                 borderRadius: BorderRadius.circular(15.0),
@@ -90,7 +104,7 @@ class _NewFoodItemState extends State<NewFoodItem> {
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Colors.blueAccent,
+                                    color: Color.fromARGB(80, 40, 26, 13),
                                     width: 2.0
                                 ),
                                 borderRadius: BorderRadius.circular(15.0),
@@ -113,13 +127,16 @@ class _NewFoodItemState extends State<NewFoodItem> {
                         ),
                         SizedBox(height: 20.0),
                         TextFormField(
+                            style: TextStyle(
+                              color: Colors.white,),
                             decoration: InputDecoration(
                               hintText: 'Item Price',
-                              fillColor: Colors.white,
+                              hintStyle: TextStyle(color: Colors.white),
+                              fillColor: Color.fromARGB(80, 40, 26, 13),
                               filled: true,
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Colors.grey[500],
+                                    color: Color.fromARGB(80, 40, 26, 13),
                                     width: 2.0
                                 ),
                                 borderRadius: BorderRadius.circular(15.0),
@@ -127,7 +144,7 @@ class _NewFoodItemState extends State<NewFoodItem> {
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Colors.blueAccent,
+                                    color: Color.fromARGB(80, 40, 26, 13),
                                     width: 2.0
                                 ),
                                 borderRadius: BorderRadius.circular(15.0),
@@ -155,11 +172,12 @@ class _NewFoodItemState extends State<NewFoodItem> {
                         custom.DropdownButtonFormField(
                           decoration: InputDecoration(
                             hintText: 'Item Price',
-                            fillColor: Colors.white,
+                            hintStyle: TextStyle(color: Colors.white),
+                            fillColor: Color.fromARGB(80, 40, 26, 13),
                             filled: true,
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Colors.grey[500],
+                                  color: Color.fromARGB(80, 40, 26, 13),
                                   width: 2.0
                               ),
                               borderRadius: BorderRadius.circular(15.0),
@@ -167,7 +185,7 @@ class _NewFoodItemState extends State<NewFoodItem> {
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Colors.blueAccent,
+                                  color: Color.fromARGB(80, 40, 26, 13),
                                   width: 2.0
                               ),
                               borderRadius: BorderRadius.circular(15.0),
@@ -175,7 +193,7 @@ class _NewFoodItemState extends State<NewFoodItem> {
                             ),
 
                           ),
-                          value: _itemStatusString ?? "Available",
+                          value:  _itemStatusString ?? "Available",
                           height: 60,
                           items: itemStatusOptions.map((item){
                             return custom.DropdownMenuItem(
@@ -198,13 +216,16 @@ class _NewFoodItemState extends State<NewFoodItem> {
                         ),
                         SizedBox(height: 20.0),
                         TextFormField(
+                            style: TextStyle(
+                              color: Colors.white,),
                             decoration: InputDecoration(
                               hintText: 'Item Image Link',
-                              fillColor: Colors.white,
+                              hintStyle: TextStyle(color: Colors.white),
+                              fillColor: Color.fromARGB(80, 40, 26, 13),
                               filled: true,
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Colors.grey[500],
+                                    color: Color.fromARGB(80, 40, 26, 13),
                                     width: 2.0
                                 ),
                                 borderRadius: BorderRadius.circular(15.0),
@@ -212,7 +233,7 @@ class _NewFoodItemState extends State<NewFoodItem> {
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Colors.blueAccent,
+                                    color: Color.fromARGB(80, 40, 26, 13),
                                     width: 2.0
                                 ),
                                 borderRadius: BorderRadius.circular(15.0),
@@ -235,7 +256,7 @@ class _NewFoodItemState extends State<NewFoodItem> {
                         ),
                         SizedBox(height: 40.0),
                         RaisedButton(
-                            color: Colors.blueAccent,
+                            color: Colors.orangeAccent,
                             child: Text(
                               'Proceed',
                               style: TextStyle(

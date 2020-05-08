@@ -1,3 +1,4 @@
+import 'package:ctseprojectapp/screens/authentication/sign_in.dart';
 import 'package:ctseprojectapp/services/auth.dart';
 import 'package:ctseprojectapp/shared/loading.dart';
 import 'package:flutter/material.dart';
@@ -26,39 +27,58 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return Scaffold(
 
-      appBar: AppBar(
-
-          backgroundColor: Colors.blueAccent,
-          title: Text('CTSE - Sign Up'),
-          actions: <Widget>[
-            FlatButton.icon(
-              icon: Icon(Icons.person),
-              label: Text('Sign In'),
-              onPressed: (){
-                widget.toggleView();
-              },
-            ),
-          ]
-      ),
+//      appBar: AppBar(
+//
+//          backgroundColor: Colors.blueAccent,
+//          title: Text('CTSE - Sign Up'),
+//          actions: <Widget>[
+//            FlatButton.icon(
+//              icon: Icon(Icons.person),
+//              label: Text('Sign In'),
+//              onPressed: (){
+//                widget.toggleView();
+//              },
+//            ),
+//          ]
+//      ),
 
       body: loading ? Loading() : Container(
 
-        padding: EdgeInsets.symmetric(vertical:20, horizontal: 50),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("images/regback.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
+
+        padding: EdgeInsets.fromLTRB(50,22,50,20),
         child: ListView(
             children: <Widget>[
+              Text("REGISTER." ,style: TextStyle(color: Color.fromARGB(250, 206, 202, 158), fontWeight: FontWeight.bold), textScaleFactor: 2.6, ),
+              Padding(
+                padding: EdgeInsets.only(top: 45),
+              ),
+              Text("Register for a new account here and have your favourite Burger from a single tap." ,style: TextStyle(height: 1.5 , color: Color.fromARGB(150, 206, 202, 158,), fontWeight: FontWeight.normal), ),
+              Padding(
+                padding: EdgeInsets.only(top: 5),
+              ),
+
               Form(
                   key: _formKey,
                   child: Column(
                       children: <Widget>[
                         SizedBox(height: 20.0),
                         TextFormField(
+                            style: TextStyle(
+                              color: Colors.white,),
                             decoration: InputDecoration(
                               hintText: 'Email Address',
-                              fillColor: Colors.white,
+                              hintStyle: TextStyle(color: Colors.white),
+                              fillColor: Color.fromARGB(80, 40, 26, 13),
                               filled: true,
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  color: Colors.grey[500],
+                                  color: Color.fromARGB(80, 40, 26, 13),
                                   width: 2.0,
                                 ),
                                 borderRadius: BorderRadius.circular(15.0),
@@ -66,7 +86,7 @@ class _RegisterState extends State<Register> {
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Colors.blueAccent,
+                                    color: Color.fromARGB(80, 40, 26, 13),
                                     width: 2.0
                                 ),
                                 borderRadius: BorderRadius.circular(15.0),
@@ -88,13 +108,16 @@ class _RegisterState extends State<Register> {
                         ),
                         SizedBox(height: 20.0),
                         TextFormField(
+                            style: TextStyle(
+                              color: Colors.white,),
                             decoration: InputDecoration(
                               hintText: 'Password',
-                              fillColor: Colors.white,
+                              hintStyle: TextStyle(color: Colors.white),
+                              fillColor: Color.fromARGB(80, 40, 26, 13),
                               filled: true,
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Colors.grey[500],
+                                    color: Color.fromARGB(80, 40, 26, 13),
                                     width: 2.0
                                 ),
                                 borderRadius: BorderRadius.circular(15.0),
@@ -102,7 +125,7 @@ class _RegisterState extends State<Register> {
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Colors.blueAccent,
+                                    color: Color.fromARGB(80, 40, 26, 13),
                                     width: 2.0
                                 ),
                                 borderRadius: BorderRadius.circular(15.0),
@@ -124,8 +147,12 @@ class _RegisterState extends State<Register> {
                             }
                         ),
                         SizedBox(height: 20.0),
+
+                        Padding(
+                          padding: EdgeInsets.only(top: 30),
+                        ),
                         RaisedButton(
-                            color: Colors.blueAccent,
+                            color: Colors.orangeAccent,
                             child: Text(
                               'Register',
                               style: TextStyle(
@@ -151,6 +178,20 @@ class _RegisterState extends State<Register> {
                               }
                             }
                         ),
+
+                        Padding(
+                          padding: EdgeInsets.only(top: 20),
+                        ),
+
+                        InkWell(
+                          child: Text("Already have an Account ? Sign In", style: TextStyle(color: Colors.white), ),
+                          onTap: () {Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => SignIn()),
+                          );},
+                        ),
+
+
                         SizedBox(height: 12.0),
                         Text(
                           error,

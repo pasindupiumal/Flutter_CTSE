@@ -24,6 +24,7 @@ class _HistoryState extends State<History> {
 
     return Scaffold(
         body: Container(
+
             child: FutureBuilder(
                 future: _databaseService.getItems(),
                 builder: (_, snapshot){
@@ -41,7 +42,7 @@ class _HistoryState extends State<History> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5.0)
                                 ),
-                                color: Colors.blue.shade400,
+                                color: Colors.orangeAccent,
                                 textColor: Colors.white,
                                 child: Text("Add New Item"),
                                 onPressed: () {

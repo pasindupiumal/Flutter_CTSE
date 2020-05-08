@@ -24,7 +24,7 @@ const EdgeInsetsGeometry _kUnalignedMenuMargin =
 
 class _DropdownMenuPainter extends CustomPainter {
   _DropdownMenuPainter({
-    this.color,
+    this.color = Colors.white,
     this.elevation,
     this.selectedIndex,
     this.resize,
@@ -191,7 +191,7 @@ class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
           label: localizations.popupMenuLabel,
           child: Material(
             type: MaterialType.transparency,
-            textStyle: route.style,
+            textStyle: route.style, color: Colors.white,
             child: ScrollConfiguration(
               behavior: const _DropdownScrollBehavior(),
               child: Scrollbar(
@@ -821,7 +821,7 @@ class _DropdownButtonState<T> extends State<DropdownButton<T>>
       selectedIndex: _selectedIndex ?? 0,
       elevation: widget.elevation,
       theme: Theme.of(context, shadowThemeOnly: true),
-      style: _textStyle,
+      style: _textStyle ,
       barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
     );
 
@@ -852,9 +852,9 @@ class _DropdownButtonState<T> extends State<DropdownButton<T>>
 
       switch (Theme.of(context).brightness) {
         case Brightness.light:
-          return Colors.grey.shade700;
+          return Colors.white;
         case Brightness.dark:
-          return Colors.white70;
+          return Colors.white;
       }
     } else {
       if (widget.iconDisabledColor != null) {
@@ -863,9 +863,9 @@ class _DropdownButtonState<T> extends State<DropdownButton<T>>
 
       switch (Theme.of(context).brightness) {
         case Brightness.light:
-          return Colors.grey.shade400;
+          return Colors.white;
         case Brightness.dark:
-          return Colors.white10;
+          return Colors.white;
       }
     }
 

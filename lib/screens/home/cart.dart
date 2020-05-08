@@ -30,25 +30,31 @@ class _CartState extends State<Cart> {
 
       return ListView.builder(
           itemCount: widget.cartList.length +1,
-          padding: EdgeInsets.only(top: 15.0, left: 10),
+          padding: EdgeInsets.only(top: 45.0, left: 10),
           itemBuilder: (BuildContext context, int index){
 
             if (index == widget.cartList.length){
               return Column(
                 children: <Widget>[
                   Center(
+
                       child: RaisedButton(
 
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5.0)
                           ),
-                          color: Colors.blue.shade400,
+                          color: Colors.orangeAccent,
                           textColor: Colors.white,
                           child: Text("Checkout Items"),
-                          onPressed: () {}
-                      )
-                  ),
+                          onPressed: () {
+
+                          }
+                      ),
+
+                 ),
+
                 ],
+
               );
             }
             return ListTile(
@@ -56,7 +62,7 @@ class _CartState extends State<Cart> {
                 backgroundImage: NetworkImage(widget.cartList[index].item.data["itemURL"]),
               ),
               title: Text(widget.cartList[index].item.data["itemName"]),
-              subtitle: Text('Includes: ' + widget.cartList[index].item.data["itemIncludes"] + '\nQuantity: ' + widget.cartList[index].quantity.toString() + '    Item Price: ' + widget.cartList[index].item.data["itemPrice"].toString() + '    Price: ' + (widget.cartList[index].quantity * widget.cartList[index].item.data["itemPrice"]).toString()),
+              subtitle: Text('Includes: ' + widget.cartList[index].item.data["itemIncludes"] + '\nQuantity: ' + widget.cartList[index].quantity.toString() + '    Item Price: ' + widget.cartList[index].item.data["itemPrice"].toString() + '    Total: ' + (widget.cartList[index].quantity * widget.cartList[index].item.data["itemPrice"]).toString()),
               isThreeLine: true,
               trailing: FlatButton.icon(
                   icon: Icon(Icons.delete),
@@ -65,11 +71,29 @@ class _CartState extends State<Cart> {
                     setState(() {
                       widget.cartList.removeAt(index);
                     });
+                    _showDeleteToast(context, 'Item successfully removed from cart');
                   }
               ),
             );
           }
       );
+
     }
+
+  }
+  void _showDeleteToast(BuildContext context, message){
+
+    final scaffold = Scaffold.of(context);
+    scaffold.showSnackBar(
+        SnackBar(
+            backgroundColor: Colors.redAccent,
+            content: Text(message),
+            action: SnackBarAction(
+              label: 'Hide',
+              textColor: Colors.brown,
+              onPressed: scaffold.hideCurrentSnackBar,
+            )
+        )
+    );
   }
 }

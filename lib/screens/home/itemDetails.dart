@@ -31,29 +31,40 @@ class _ItemDetailsState extends State<ItemDetails> {
                 topRight: Radius.circular(60.0)
             )
         ),
+
+
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+
+            SizedBox(height: 35.0),
+
             Text(widget.itemSnap.data["itemName"], style: TextStyle(
                 fontSize: 24.0,
+                color: Colors.brown,
                 fontWeight: FontWeight.bold
             ),),
-            SizedBox(height: 20.0),
+            SizedBox(height: 10.0),
             Text("\Rs. " + widget.itemSnap.data["itemPrice"].toString(), style: TextStyle(
-                fontSize: 17.0
+                fontSize: 17.0,
+               color: Colors.brown,
             ),),
-            SizedBox(height: 7.0),
+            SizedBox(height: 40.0),
+
+            Text("Please select the quantity"),
+            SizedBox(height: 40.0),
             Row(
+
               children: <Widget>[
-                Text("Includes: " + widget.itemSnap.data["itemIncludes"], style: TextStyle(
-                    color: Colors.grey.shade700
-                ),),
                 Spacer(),
-                Text("Rs. " + (quantity.round() * widget.itemSnap.data["itemPrice"]).toString()),
+                Text("Total  Rs. " + (quantity.round() * widget.itemSnap.data["itemPrice"]).toString(), style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),),
               ],
             ),
-            SizedBox(height: 30.0),
+
+            SizedBox(height: 20.0),
             Slider(
+              activeColor: Colors.orangeAccent,
+              inactiveColor: Colors.white,
               onChanged: (value){
                 setState(() {
                   quantity = value;
@@ -65,7 +76,7 @@ class _ItemDetailsState extends State<ItemDetails> {
               divisions: 20,
 
             ),
-            SizedBox(height: 8.0),
+            SizedBox(height: 10.0),
             Row(
               children: <Widget>[
                 Text("Quantity", style: TextStyle(
@@ -83,10 +94,11 @@ class _ItemDetailsState extends State<ItemDetails> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5.0)
                   ),
-                  color: Colors.blue.shade400,
+                  color: Colors.orangeAccent,
                   textColor: Colors.white,
                   child: Text("Add to Cart"),
                   onPressed: (){
+                    _showToast(context, 'Item added to cart successfully');
                     setState(() {
                       widget.cartList.add(
                         FoodItem(
@@ -123,4 +135,20 @@ class _ItemDetailsState extends State<ItemDetails> {
       ),
     );
   }
+  void _showToast(BuildContext context, message){
+
+    final scaffold = Scaffold.of(context);
+    scaffold.showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.lightGreen,
+            content: Text(message),
+            action: SnackBarAction(
+              label: 'Hide',
+              textColor: Colors.brown,
+              onPressed: scaffold.hideCurrentSnackBar,
+            )
+        )
+    );
+  }
+
 }

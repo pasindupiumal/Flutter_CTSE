@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ctseprojectapp/screens/home/itemDetails.dart';
 import 'package:ctseprojectapp/services/database.dart';
 import 'package:ctseprojectapp/shared/loading.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'foodItem.dart';
@@ -30,6 +31,13 @@ class _BrowseState extends State<Browse> {
 
       body: Container(
 
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("images/menuback.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
+
         child: FutureBuilder(
             future: _databaseService.getItems(),
             builder: (_, snapshot){
@@ -46,7 +54,7 @@ class _BrowseState extends State<Browse> {
 
                 return ListView.builder(
                     itemCount: snapshot.data.length,
-                    padding: EdgeInsets.only(top: 15.0, left: 10, right: 10),
+                    padding: EdgeInsets.only(top: 15.0, left: 5, right: 5),
                     itemBuilder: (_, index){
                       return itemCard(snapshot.data[index], snapshot.data[index].data["itemName"], snapshot.data[index].data["itemIncludes"], snapshot.data[index].data["itemPrice"].toString(), snapshot.data[index].data["itemURL"], snapshot.data[index].data["itemAvailable"]);
                     }
@@ -67,16 +75,17 @@ class _BrowseState extends State<Browse> {
         }
       },
       child: Padding(
-          padding: EdgeInsets.all(10.0),
+          padding: EdgeInsets.all(5.0),
           child: Material(
+            color: Color.fromARGB(50, 255, 255, 255),
               borderRadius: BorderRadius.circular(10.0),
-              elevation: 3.0,
+              elevation: 5.0,
               child: Container(
-                  padding: EdgeInsets.only(left: 15.0, right: 10.0),
+                  padding: EdgeInsets.only(left: 10.0, right: 5.0),
                   width: MediaQuery.of(context).size.width - 20.0,
-                  height: 100.0,
+                  height: 140.0,
                   decoration: BoxDecoration(
-                      color: Colors.white,
+                    //  color: Color.fromARGB(60, 40, 26, 13),
                       borderRadius: BorderRadius.circular(10.0)),
                   child: Row(
                     children: <Widget>[
@@ -88,15 +97,15 @@ class _BrowseState extends State<Browse> {
                               width: 25.0,
                               decoration: BoxDecoration(
                                 color: available
-                                    ? Colors.lightGreenAccent.withOpacity(0.4)
-                                    : Colors.red.withOpacity(0.4),
+                                    ? Colors.lightGreenAccent.withOpacity(0.6)
+                                    : Colors.red.withOpacity(0.6),
                                 borderRadius: BorderRadius.circular(12.5),
                               ),
                               child: Center(
                                   child: available
                                       ? Container(
-                                    height: 12.0,
-                                    width: 12.0,
+                                    height: 5.0,
+                                    width: 5.0,
                                     decoration: BoxDecoration(
 
                                         borderRadius:
@@ -105,16 +114,17 @@ class _BrowseState extends State<Browse> {
                                       : Container()))
                         ],
                       ),
-                      SizedBox(width: 10.0),
+                      SizedBox(width: 7),
                       Container(
-                        height: 100.0,
-                        width: 80.0,
+                        height: 150.0,
+                        width: 150.0,
                         decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(3.0),
                             image: DecorationImage(
                                 image: NetworkImage(imgPath),
-                                fit: BoxFit.contain)),
+                                fit: BoxFit.fill)),
                       ),
-                      SizedBox(width: 40.0),
+                      SizedBox(width: 15),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -126,7 +136,8 @@ class _BrowseState extends State<Browse> {
                                 style: TextStyle(
                                     fontFamily: 'Montserrat',
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 15.0),
+                                    fontSize: 15.0,
+                                color: Colors.white),
                               ),
                               SizedBox(width: 7.0),
                             ],
@@ -134,7 +145,7 @@ class _BrowseState extends State<Browse> {
                           SizedBox(height: 7.0),
                           available
                               ? Text(
-                            'Includes: ' + includes,
+                            includes,
                             style: TextStyle(
                                 fontFamily: 'Quicksand',
                                 fontWeight: FontWeight.bold,

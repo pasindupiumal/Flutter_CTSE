@@ -30,7 +30,7 @@ class _HomeState extends State<Home> {
       navigatorKey: GlobalKey<NavigatorState>(),
     ),
     AppFlow(
-      title: 'History',
+      title: 'Manage',
       iconData: Icons.history,
       navigatorKey: GlobalKey<NavigatorState>(),
     ),
@@ -50,32 +50,34 @@ class _HomeState extends State<Home> {
 
     return WillPopScope(
 
+
       onWillPop: () async => !await currentFlow.navigatorKey.currentState.maybePop(),
 
       child: Scaffold(
 
-        appBar: AppBar(
+//        appBar:  AppBar(
+//
+//          backgroundColor: Colors.brown,
+//          title: Text(''),
+//          actions: <Widget>[
+//            FlatButton.icon(
+//
+//              icon: Icon(Icons.person, color:Colors.white,),
+//              label: Text(
+//                'Logout',
+//                style: TextStyle(
+//                  color: Colors.white,
+//                ),
+//              ),
+//              onPressed: () async {
+//
+//                await _authService.signOut();
+//              },
+//
+//            )
+//          ],
+//        ),
 
-          backgroundColor: Colors.blueAccent,
-          title: Text('Flutter Eats'),
-          actions: <Widget>[
-            FlatButton.icon(
-
-              icon: Icon(Icons.person, color:Colors.white,),
-              label: Text(
-                'Logout',
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-              onPressed: () async {
-
-                await _authService.signOut();
-              },
-
-            )
-          ],
-        ),
 
         body: IndexedStack(
           index: _currentIndex,
@@ -84,9 +86,13 @@ class _HomeState extends State<Home> {
           ).toList(),
         ),
 
+
         bottomNavigationBar: BottomNavigationBar(
 
           currentIndex: _currentIndex,
+          backgroundColor: Colors.brown,
+          selectedItemColor: Colors.orangeAccent,
+          unselectedItemColor: Colors.white,
           type: BottomNavigationBarType.fixed,
           items: appFlows.map(
               (flow) => BottomNavigationBarItem(
