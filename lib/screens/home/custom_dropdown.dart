@@ -851,9 +851,9 @@ class _DropdownButtonState<T> extends State<DropdownButton<T>>
 
       switch (Theme.of(context).brightness) {
         case Brightness.light:
-          return Colors.white;
+          return Colors.brown;
         case Brightness.dark:
-          return Colors.white;
+          return Colors.brown;
       }
     } else {
       if (widget.iconDisabledColor != null) {
@@ -862,9 +862,9 @@ class _DropdownButtonState<T> extends State<DropdownButton<T>>
 
       switch (Theme.of(context).brightness) {
         case Brightness.light:
-          return Colors.white;
+          return Colors.brown;
         case Brightness.dark:
-          return Colors.white;
+          return Colors.brown;
       }
     }
 
@@ -960,7 +960,7 @@ class _DropdownButtonState<T> extends State<DropdownButton<T>>
                   decoration: const BoxDecoration(
                       border: Border(
                           bottom: BorderSide(
-                              color: Color(0xFFBDBDBD), width: 0.0))),
+                              color: Colors.brown, width: 0.0))),
                 ),
           ),
         ],

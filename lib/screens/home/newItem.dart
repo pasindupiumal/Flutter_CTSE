@@ -32,6 +32,7 @@ class _NewFoodItemState extends State<NewFoodItem> {
 
       body: loading ? Loading() : Container(
 
+
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage("images/additemback.jpg"),
@@ -198,7 +199,7 @@ class _NewFoodItemState extends State<NewFoodItem> {
                           items: itemStatusOptions.map((item){
                             return custom.DropdownMenuItem(
                               value: item,
-                              child: Text('$item'),
+                              child: Text('$item' ,  style: TextStyle(color: Colors.white),),
                             );
                           }).toList(),
                           onChanged: (value){
