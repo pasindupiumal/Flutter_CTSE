@@ -216,7 +216,7 @@ class _UpdateItemState extends State<UpdateItem> {
                           items: itemStatusOptions.map((item){
                             return custom.DropdownMenuItem(
                               value: item,
-                              child: Text('$item'),
+                              child: Text('$item' , style: TextStyle(color: Colors.white),),
                             );
                           }).toList(),
                           onChanged: (value){
