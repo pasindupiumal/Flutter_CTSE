@@ -1,36 +1,31 @@
-import 'package:ctseprojectapp/main.dart';
-import 'package:ctseprojectapp/screens/authentication/sign_in.dart';
+import 'package:ctseprojectapp/screens/wrapper.dart';
 import 'package:flutter/material.dart';
 
-void main(){
-  runApp(MaterialApp(home:MyApp(),));
-  }
+class Splash extends StatefulWidget {
+  @override
+  _SplashState createState() => _SplashState();
+}
 
-  class MyApp extends StatefulWidget{
-    _MyAppState createState() => _MyAppState();
-  }
-  
+class _SplashState extends State<Splash> {
 
-  class _MyAppState extends State<MyApp>{
-    
-  @override 
+  @override
   void initState(){
     super.initState();
     Future.delayed(
       Duration(seconds: 3),
-        (){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => SignIn(),),);
-        },
+          (){
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Wrapper(),),);
+      },
     );
   }
-  
-  
+
+
   @override
-    Widget build(BuildContext context){
-      return Scaffold(
-        body: Container(
-          child: Text("Sample Text"),
-        ),
-      );
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        child: Text("Sample Text"),
+      ),
+    );
   }
 }
